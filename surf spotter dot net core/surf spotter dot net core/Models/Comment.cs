@@ -8,6 +8,7 @@ namespace surf_spotter_dot_net_core.Models
 {
     public class Comment
     {
+        //Mario x Luigi
         public int Id { get; set; }
         public string SpotInfo { get; set; }
         public string WaveDescription { get; set; }
