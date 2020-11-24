@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Surf Spotter</title>
+    <link rel="stylesheet" href="CSS/myStyleSheet.css" type="text/css" >
+    <link rel="stylesheet" href="CSS/navBarSheet.css" type="text/css">
+    <link rel="stylesheet" href="CSS/aboutUsSheet.css" type="text/css">
+    <link rel="stylesheet" href="CSS/contactSheet.css" type="text/css">
+    <link rel="stylesheet" href="CSS/footerSheet.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+
+
+</head>
+
+<body>
+<header>
+    <nav>
+    <div class="nav-bar">
+        <ul>
+            <li><a href="index.html">Hjem</a></li>            
+            <li><a href="spots.html">Spots</a></li>            
+            <li><a href="Aboutus.html">Om os</a></li>            
+            <li><a href="#">Kontakt</a></li> 
+            <li><a href="login.html">Login</a></li>
+
+        </ul>
+    </nav>
+    <div class="overlay">
+        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+
+            <source src="assets/Images/Wave-video.mp4" type="video/mp4">
+
+            <source src="assets/Images/Header.mp4" type="video/mp4">
+
+            <source src="assets/Images/Header.mp4" type="video/mp4">
+
+        </video>
+    </div>
+    <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="white" fill-opacity="1" d="M0,256L48,229.3C96,203,
+        192,149,288,154.7C384,160,480,224,576,218.7C672,213,768,139,864,
+        128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,
+        224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,
+        864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,
+        320,48,320L0,320Z"></path>
+      </svg>
+</div>
+
+<div class="hero-text">
+    <h1>Kontakt</h1>
+</div>
+</header>
+
+<div class="contact">
+    <!-- ved ikke om videoen skal være med -->
+    <!-- <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+        <source src="Wave-video.mp4" type="video/mp4">
+    </video> -->
+    <div class="container">
+        <div class="contact-form">
+            <form>
+                <div class="inputgroup">
+                    <input type="text" name="fname" required="required">
+                    <span>Fornavn</span>
+                </div>
+                <div class="inputgroup">
+                    <input type="text" name="lname" required="required">
+                    <span>Efternavn</span>
+                </div>
+                <div class="inputgroup">
+                    <input type="email" name="email" required="required">
+                    <span>Mail</span>
+                </div>
+                <div class="inputgroup">
+                    <textarea required="required"></textarea>
+                    <span>Besked</span>
+                </div>
+                <div class="inputgroup">
+                    <input class="sub" type="submit" value="Send">
+                </div>
+            </form>
+        </div>
+        <div class="surfer">
+            <img src="Assets/Images/surfer2.png">
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="footer-content">
+        <p class="copyright">
+            Copyright &copy; 2020, Team Y4 - All Rights Reserved 
+        </p>
+        <div class="social-list">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            
+        </div>
+    </div>
+</footer>
+    
+</body>
+</html>

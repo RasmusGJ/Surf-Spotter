@@ -1,0 +1,38 @@
+﻿@model surf_spotter_dot_net_core.Models.Spot
+
+@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Spot</h2>
+
+<h4>@Model.Name</h4>
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Department</h4>
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.RowVersion)
+            @Model.Name
+            @Html.EditorFor(model => model.Name)
+            <br />
+            @Model.Lat
+            @Html.EditorFor(model => model.Lat)
+            <br />
+            @Model.Lng
+            @Html.EditorFor(model => model.Lng)
+            <br />
+            @Model.SpotStatus
+            @Html.EditorFor(model => model.SpotStatus)
+        </div>
+        }
+    </div>
+</div>

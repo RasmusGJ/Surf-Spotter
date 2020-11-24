@@ -1,0 +1,91 @@
+﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model surf_spotter_dot_net_core.Models.Account.RegisterViewModel
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="CSS/navBarSheet.css" type="text/css">
+    <link rel="stylesheet" href="CSS/loginSheet.css" type="text/css">
+    <link rel="stylesheet" href="CSS/footerSheet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+
+
+
+
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-bar">
+                <ul>
+                    <li><a href="Index">Hjem</a></li>
+                    <li><a href="spots">spots</a></li>
+                    <li><a href="Aboutus">Om os</a></li>
+                    <li><a href="Kontakt">Kontakt</a></li>
+                    <li><a href="login">Login</a></li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="login">
+       
+
+        <div class="container">
+
+            <div class="login-form">
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary()
+                    <h2 id="reg">Registrer</h2>
+                    <div class="inputgroup">
+                        @Html.LabelFor(x => x.UserName)
+                        @Html.EditorFor(x => x.UserName)
+                        @Html.ValidationMessageFor(x => x.UserName)
+                    </div>
+
+                    <div class="inputgroup">
+                        @Html.LabelFor(x => x.Email)
+                        @Html.EditorFor(x => x.Email)
+                        @Html.ValidationMessageFor(x => x.Email)
+                    </div>
+                    <div class="inputgroup">
+                        @Html.LabelFor(x => x.Password)
+                        @Html.EditorFor(x => x.Password)
+                        @Html.ValidationMessageFor(x => x.Password)
+
+                    </div>
+
+                    <div class="inputgroup">
+                        <button type="submit" class="sub">Registrer</button>
+                    </div>
+                    <div class="inputgroup"> 
+                        <input type="button" class="sub" onclick="location.href = 'login';" value="Login">
+                    </div>
+                
+                }
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="copyright">
+                Copyright &copy; 2020, Team Y4 - All Rights Reserved
+            </p>
+            <div class="social-list">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+
+            </div>
+
+            <script src="login.js"></script>
+</body>
+</html>

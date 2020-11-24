@@ -1,0 +1,188 @@
+header
+{
+    background-color: black;
+    
+}
+
+.login{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-attachment: fixed;
+    background-color: black;
+    
+    
+    
+}
+/* skal videoen*/
+/* .contact video{
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+} */
+
+.login video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+
+  
+  }
+  .login .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0.7;
+  overflow: hidden;
+  
+  
+}
+
+.container{
+    position: relative;
+    width: 35%;
+    max-width: 1100px;
+    margin: 20px;
+    height: 600px;
+    background: #122647;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 15px 15px;
+    margin-bottom: 100px;
+    
+}
+
+.container .login-form{
+    width: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    
+}
+
+.container .login-form form{
+    position: relative;
+    width: 100%;
+    padding-left: 150px;
+
+    
+}
+.container .login-form form h2{
+    margin-bottom: 50%;
+    font-size: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgb(255, 196, 0);
+
+    
+}
+
+
+
+
+.container .login-form form .inputgroup{
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.container .login-form form .inputgroup:last-child{
+    margin-bottom: 0px;
+}
+.container .login-form form .inputgroup input
+{
+    position: relative;
+    background:transparent;
+    outline: none;
+    border: none;
+    width: 100%;
+    color: #fff;
+    padding-bottom: 10px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: 300;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5); 
+    resize: none;
+    
+}
+
+.container .login-form form .inputgroup input.sub{
+    padding: 8px 20px;
+    margin-top: -10px;
+    width: 100px;
+    cursor: pointer;
+    background: rgba(0, 150, 150, 1);
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    border: none;
+    border-radius: 5% ;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    transition: all 0.3s;
+
+}
+.container .login-form form .inputgroup input.sub:hover{
+    color: black;
+    background: #1bfaad;
+}
+
+.container .login-form form .inputgroup span{
+    position: absolute;
+    left: 0;
+    font-size: 16px;
+    font-weight: 300;
+    display: inline-block;
+    pointer-events: none;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s;
+}
+.container .login-form form .inputgroup input:focus ~ span,
+.container .login-form form .inputgroup input:valid ~ span
+{
+
+    transform: translateY(-24px);
+    color: #1bfaad;
+    font-size: 17px;
+
+}
+.container .login-form form .inputgroup button.sub,
+.container .login-form form .inputgroup input.sub{
+    padding: 8px 20px;
+    margin-top: -10px;
+    width: 200px;
+    cursor: pointer;
+    background: rgba(0, 150, 150, 1);
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    border: none;
+    border-radius: 1% ;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    transition: all 0.3s;
+
+}
+.container .login-form form .inputgroup button.sub:hover{
+    color: black;
+    background: #1bfaad;
+}

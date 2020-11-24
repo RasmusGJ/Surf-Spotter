@@ -1,0 +1,42 @@
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+.nav-bar{
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative; 
+    z-index: 1000;
+}
+
+nav{
+    background: rgba(37, 37, 37, 0);
+    height: 50px;
+    width: 100%;
+}
+
+nav ul{
+    float: right;
+    margin-right: 20px;
+}
+
+nav ul li{
+    display: inline-block;
+    line-height: 50px;
+    margin: 0 5px;
+}
+
+nav ul li a{
+    color: white;
+    font-size: 17px;
+    padding: 7px 13px;
+    border-radius: 5px;
+}
+
+a.active,a:hover{
+    color: rgb(255, 196, 0);;
+    transition: .4s;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="CSS/navBarSheet.css" type="text/css">
+    <link rel="stylesheet" href="CSS/loginSheet.css" type="text/css">
+    <link rel="stylesheet" href="CSS/footerSheet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+
+
+
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-bar">
+                <ul>
+                    <li><a href="index.html">Hjem</a></li>
+                    <li><a href="spots.html">Spots</a></li>
+                    <li><a href="Aboutus.html">Om os</a></li>
+                    <li><a href="Kontakt.html">Kontakt</a></li>
+                    <li><a href="#">Login</a></li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+   
+    <div class="login">
+        <div class="overlay">
+            <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+                <source src="Assets/Images/Oceanwaves-login.mp4" type="video/mp4">
+            </video>
+        </div>
+       
+        
+        <div class="container">
+            
+            <div class="login-form">
+                <form action="" method="post">
+                    <h2 id="login">Login</h2>
+                    <div class="inputgroup">
+                        <input type="text" name="Uname" required="required">
+                        <span>Brugernavn</span>
+                    </div>
+
+                    <div class="inputgroup">
+                        <input type="password" name="password" required="required">
+                        <span>Indtast adgangskode</span>
+                    </div>
+
+                    <div class="inputgroup">
+                        <button type="submit" class="sub">Login</button>
+                    </div>
+                    <div class="inputgroup">
+                        <input type="button" class="sub" onclick="location.href = 'Signup.html';" value="Registrer">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="copyright">
+                Copyright &copy; 2020, Team Y4 - All Rights Reserved
+            </p>
+            <div class="social-list">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+
+            </div>
+
+            <script src="login.js"></script>
+</body>
+
+</html>

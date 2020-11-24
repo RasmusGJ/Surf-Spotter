@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="dk">
+    <head>
+        <meta charset="utf-8"> 
+        <title>Surf Spotter</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="viewport" content="width-device, initial scale=1.0">  
+        <link rel="stylesheet" type="text/css" href="CSS/navBarSheet.css"/>
+        <link rel="stylesheet" type="text/css" href="CSS/myStyleSheet.css"/>
+        <link rel="stylesheet" href="CSS/footerSheet.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    </head> 
+
+    <header> 
+        <div class="nav-bar">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Hjem</a></li>
+                    <li><a href="spots.html">Spots</a></li>
+                    <li><a href="Aboutus.html">Om os</a></li>
+                    <li><a href="Kontakt.html">Kontakt</a></li>
+                    <li><a href="login.html">Login</a></li>
+
+                </ul>        
+            </nav>
+        </div>      
+        <div class="overlay">
+            <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+                <source src="Assets/Images/Header.mp4" type="video/mp4">
+            </video>  
+        </div>
+        <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="white" fill-opacity="1" d="M0,256L48,229.3C96,203,
+            192,149,288,154.7C384,160,480,224,576,218.7C672,213,768,139,864,
+            128C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,
+            224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,
+            864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,
+            320,48,320L0,320Z"></path>
+          </svg>
+        <div class="hero-text">
+            <h1>Surf Spotter</h1>
+        </div>
+        <div class="sub-hero-text">
+            <label>Undersøg. Planlæg. Surf.</label>
+        </div>    
+
+        <button class="goToBody" href="#infoImage1"><i class="fas fa-arrow-down fa-2x"></i></button>
+
+    </header>
+
+    <img class="infoImage1" id="infoImage1" src="Assets/Images/hvad_tilbyder_vi.jpg"></img>
+
+    <div class="homepage-infoText1">
+        <h2 style="padding-bottom: 20px;">Hvad tilbyder vi?</h2>
+        <span>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+            sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud.
+        </span>
+        <label class="contentLabel1" style="font-weight: 600;">
+            <br>
+            <i class="fas fa-check" style="margin-top: 35px;"></i>
+            Opdateret bølge og vejr data
+            </br>
+            <br>
+            <i class="fas fa-check"></i>
+            Oprettelser af private spots
+            </br>
+            <br>
+            <i class="fas fa-check"></i>
+            Surf community
+            </br>
+        </label>
+    </div>
+    <p>
+
+    </p>
+    <img class="infoImage2" id="infoImage1" src="Assets/Images/surfboard_boxblur.jpg"></img>
+
+    <div class="homepage-infoText2">
+        <h2 style="padding-bottom: 20px;">Hvad tilbyder vi?</h2>
+        <span>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+            sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam, quis nostrud.
+        </span>
+        <label class="contentLabel2" style="font-weight: 600;">
+            <br>
+            <i class="fas fa-check" style="margin-top: 35px;"></i>
+            Opdateret bølge og vejr data
+            </br>
+            <br>
+            <i class="fas fa-check"></i>
+            Oprettelser af private spots
+            </br>
+            <br>
+            <i class="fas fa-check"></i>
+            Surf community
+            </br>
+        </label>
+    </div>
+    
+    <p>
+
+    </p>
+    <!--Vejr data hentes fra yr-api.js-->
+    <!--<h1 id="airTemp" class="airTemp">Loading...</h1>
+    <h1 id="airPress" class="airPress">Loading...</h1>
+    <h1 id="windSpeed" class="windSpeed">Loading...</h1>
+    <h1 id="probPercipitation" class="probPercipitation">Loading...</h1>
+
+    
+    <script src="JS/yr-api.js"></script>-->
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="copyright">
+                Copyright &copy; 2020, Team Y4 - All Rights Reserved
+            </p>
+            <div class="social-list">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+    
+            </div>
+        </div>
+    </footer>
+</html>

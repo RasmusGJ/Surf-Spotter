@@ -1,0 +1,43 @@
+﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model surf_spotter_dot_net_core.Models.Spot
+@{
+    Layout = null;
+}
+
+
+<div class="container">
+
+    <div class="login-form">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary()
+            <h2 id="reg">Registrer</h2>
+            <div class="inputgroup">
+                @Html.LabelFor(x => x.Name)
+                @Html.EditorFor(x => x.Name)
+                @Html.ValidationMessageFor(x => x.Name)
+            </div>
+
+            <div class="inputgroup">
+                @Html.LabelFor(x => x.Lat)
+                @Html.EditorFor(x => x.Lat)
+                @Html.ValidationMessageFor(x => x.Lat)
+            </div>
+            <div class="inputgroup">
+                @Html.LabelFor(x => x.Lng)
+                @Html.EditorFor(x => x.Lng)
+                @Html.ValidationMessageFor(x => x.Lng)
+
+            </div>
+            <div class="inputgroup">
+                @Html.LabelFor(x => x.SpotStatus)
+                @Html.EditorFor(x => x.SpotStatus)
+                @Html.ValidationMessageFor(x => x.SpotStatus)
+
+            </div>
+            <div class="inputgroup">
+                <button type="submit" class="sub">Opret Spot</button>
+            </div>
+        }
+    </div>
+</div>
