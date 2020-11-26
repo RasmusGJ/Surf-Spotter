@@ -67,6 +67,7 @@
 }
 
 .submit-btn {
+    margin:25px;
     background-color: #ffcc00;
     border: none;
     border-radius: .2em;
@@ -80,6 +81,14 @@
 .submit-btn:hover {
     background-color: #ffcc66;
     padding: 9px 25px;
+}
+
+.tableSection {
+    background-color: #f7f7f7;
+    padding-top: 100px;
+    margin-top: 150px;
+    padding-bottom: 50px;
+    margin-bottom: 50px;
 }
 
 .gallery-section {

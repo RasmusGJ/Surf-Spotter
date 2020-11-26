@@ -133,38 +133,39 @@
         type="text/javascript">
 </script>
 
-@foreach (var s in Model.Spots)
-{
-    if (s.Id == Model.CurrentSpot.Id)
+<div class="tableSection">
+    @foreach (var s in Model.Spots)
     {
-        <h2 style="text-align:center; margin-top:75px">@s.Name</h2>
+        if (s.Id == Model.CurrentSpot.Id)
+        {
+            <h2 style="text-align:center;">@s.Name</h2>
+        }
     }
-}
 
-<div class="spotSelectDiv">
-    <form action="spots" method="post">
-        <select class="spotSelect"
-                asp-for="CurrentSpot.Id"
-                asp-items="@(new SelectList(Model.Spots,"Id","Name"))">
-        </select>
+    <div class="spotSelectDiv">
+        <form action="spots" method="post">
+            <select class="spotSelect"
+                    asp-for="CurrentSpot.Id"
+                    asp-items="@(new SelectList(Model.Spots,"Id","Name"))">
+            </select>
 
-        <select class="unitSelect"
-                asp-for="SpotFormat">
-            <option value="1">Metric</option>
-            <option value="2">Imperial</option>
-        </select>
+            <select class="unitSelect"
+                    asp-for="SpotFormat">
+                <option value="1">Metric</option>
+                <option value="2">Imperial</option>
+            </select>
 
-        <select class="timeSelect"
-                asp-for="TimeFormat">
-            <option value="1">Hourly</option>
-            <option value="2">Daily</option>
-        </select>
+            <select class="timeSelect"
+                    asp-for="TimeFormat">
+                <option value="1">Hourly</option>
+                <option value="2">Daily</option>
+            </select>
 
-        <input type="submit" value="Go To Spot!" class="submit-btn" />
-    </form>
-</div>
+            <input style="margin:auto" type="submit" value="Go To Spot!" class="submit-btn" />
+        </form>
+    </div>
 
-<div>
+
     @if (Model.TimeFormat == 1)
     {
         <table class="dataTable">
@@ -184,6 +185,9 @@
                     </th>
                     <th>
                         Wind Speed
+                    </th>
+                    <th>
+                        Wind Degree
                     </th>
 
                 </tr>
@@ -215,6 +219,10 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => vmItem.Wind_Speed)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => vmItem.Wind_Deg)
+                                <img src="~/Assets/Images/arrow.png" id="myimage" style="transform:rotate(@vmItem.Wind_Deg@@deg); margin-top:5px;margin-left:10px;margin-right:10px;" />
                             </td>
                         </tr>
                         c = 1;
