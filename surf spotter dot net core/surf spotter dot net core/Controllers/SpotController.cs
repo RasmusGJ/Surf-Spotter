@@ -42,7 +42,7 @@ namespace surf_spotter_dot_net_core.Controllers
             SpotsViewModel spotsViewModel = new SpotsViewModel();
 
             //Set the timeformat to 1(hourly forecast
-            spotsViewModel.TimeFormat = 1;
+            spotsViewModel.TimeFormat = 2;
 
             // Get the data from spot with Id 2 as standard data
             var spot = _client.GetOneSpot(1);
