@@ -25,7 +25,7 @@ namespace surf_spotter_dot_net_core.Controllers
         }
 
         //Loads the login view
-        [HttpGet("Account/Login")]
+        [HttpGet("Login")]
         [Route("Login")]        
         public ActionResult Login()
         {

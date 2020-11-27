@@ -72,6 +72,7 @@ namespace surf_spotter_dot_net_core
 
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
+            
 
             services.AddDbContext<IdentityDataContext>(options =>
             {
@@ -85,7 +86,12 @@ namespace surf_spotter_dot_net_core
             services.AddSingleton<HttpProxy>();
 
             services.AddMvc();
-            
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                // Cookie settings
+                options.AccessDeniedPath = "/login";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -116,11 +122,11 @@ namespace surf_spotter_dot_net_core
             });
 
             app.UseRouting();
-
+            
             app.UseAuthentication();
 
             app.UseAuthorization();
-
+            
             app.UseCustomMiddleware();
 
             app.UseEndpoints(endpoints =>
