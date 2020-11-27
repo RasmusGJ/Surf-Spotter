@@ -36,7 +36,7 @@ namespace surf_spotter_dot_net_core.Controllers
 
         //
         // Return views with routing to each of them
-        // I.E AboutUs returns Abouts.cshtml
+        // I.E AboutUs returns Aboutus.cshtml
         // 
         [Route("")]
         [Route("Index")]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using surf_spotter_dot_net_core.Models;
@@ -161,6 +162,8 @@ namespace surf_spotter_dot_net_core.Controllers
         {
             return View();
         }
+
+        [Authorize()]
         [HttpPost, Route("CreateComment")]
         public IActionResult CreateComment(SpotsViewModel spotsViewModel)
         {
