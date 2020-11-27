@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "surf spotter dot net core", "surf spotter dot net core\surf spotter dot net core.csproj", "{A8C4E7C6-2059-4A5C-B27C-9245CBFA1114}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surf spotter Identity Server", "Surf spotter Identity Server\Surf spotter Identity Server.csproj", "{5B916218-28C9-408C-9642-419ED21E3D40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Surf spotter Identity Server", "Surf spotter Identity Server\Surf spotter Identity Server.csproj", "{5B916218-28C9-408C-9642-419ED21E3D40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
