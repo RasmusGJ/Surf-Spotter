@@ -25,8 +25,8 @@ namespace surf_spotter_dot_net_core.Controllers
         }
 
         //Loads the login view
-        [HttpGet]
-        [Route("Login")]
+        [HttpGet("Account/Login")]
+        [Route("Login")]        
         public ActionResult Login()
         {
             return View(new LoginViewModel());
@@ -64,9 +64,9 @@ namespace surf_spotter_dot_net_core.Controllers
             await _signInManager.SignOutAsync();
 
             if(string.IsNullOrWhiteSpace(returnUrl))
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
 
-            return Redirect(returnUrl);
+            return RedirectToAction("Index", "Home");
         }
 
         //Get request returning signup page.

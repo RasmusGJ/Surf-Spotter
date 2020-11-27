@@ -62,12 +62,12 @@ namespace surf_spotter_dot_net_core
                     {
                         Name = "Liban Rage",
                         Email = string.Empty,
-                        Url = new Uri("https://twitter.com/spboyer"),
+                        Url = new Uri("https://twitter.com/"),
                     },
                 });
             });
 
-            //  ??????????????????services.AddAuthentication(IISDefaults.AuthenticationScheme);
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
 
             services.AddDbContext<IdentityDataContext>(options =>
