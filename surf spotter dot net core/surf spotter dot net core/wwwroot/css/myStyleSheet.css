@@ -19,13 +19,14 @@ h2 {
   color: rgb(61, 61, 61);
 }
 
-p {
-  padding: 3.5%;
-}
-
-span{
+.homeSpan1{
   line-height: 1.5;
   color: rgb(102, 102, 102);
+}
+
+.homeSpan2 {
+    line-height: 1.5;
+    color: rgb(102, 102, 102);
 }
 
 td {

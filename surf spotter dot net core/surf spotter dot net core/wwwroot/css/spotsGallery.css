@@ -91,6 +91,55 @@
     margin-bottom: 50px;
 }
 
+.oneComment {
+    margin-left: 75px;
+}
+
+.commentAuthor {
+    margin-top: 25px;
+    line-height: 1;
+    color: #212121;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.commentDsc {
+    line-height: 1;
+    color: #212121;
+}
+
+.commentDetail {
+    margin-top: 15px;
+    color: rgb(102, 102, 102);
+    margin-bottom: 30px;
+}
+
+.border1 {
+    width: 750px;
+    height: 1.5px;
+    background: #949494;
+    margin-left:75px;
+    margin-bottom: 30px;
+}
+
+.makeCommentCon {
+    margin-left: 75px;
+}
+
+.commentDscInput {
+    width: 450px;
+    height: 25px;
+    border-color: black;
+    border-collapse:collapse;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+.form-group{
+    margin-top:15px;
+}
+
 .gallery-section {
     width: 100%;
     padding: 60px 0;
