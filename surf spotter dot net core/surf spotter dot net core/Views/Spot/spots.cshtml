@@ -133,7 +133,9 @@
         type="text/javascript">
 </script>
 
+
 <div class="tableSection">
+
     @foreach (var s in Model.Spots)
     {
         if (s.Id == Model.CurrentSpot.Id)
@@ -302,37 +304,63 @@
     }
 </div>
 
-<div class="container">
-
-    <div class="comment-form">
-        @using (Html.BeginForm())
+<div>
+    <table>
+        @foreach (var comment in Model.CurrentSpot.Comments)
         {
-            @Html.ValidationSummary()
-            <h2 id="reg">Ny kommentar</h2>
-            <div class="inputgroup">
-                @Html.LabelFor(x => x.CurrentComment.Description)
-                @Html.EditorFor(x => x.CurrentComment.Description)
-                @Html.ValidationMessageFor(x => x.CurrentComment.Description)
-            </div>
 
-            <div class="inputgroup">
-                @Html.LabelFor(x => x.CurrentComment.WaveDescription)
-                @Html.EditorFor(x => x.CurrentComment.WaveDescription)
-                @Html.ValidationMessageFor(x => x.CurrentComment.WaveDescription)
-            </div>
-            <div class="inputgroup">
-                @Html.LabelFor(x => x.CurrentComment.AmountOfPeople)
-                @Html.EditorFor(x => x.CurrentComment.AmountOfPeople)
-                @Html.ValidationMessageFor(x => x.CurrentComment.AmountOfPeople)
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => comment.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => comment.WaveDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => comment.AmountOfPeople)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => comment.Author)
+                </td>
+                
+            </tr>
 
-            </div>
-
-            <div class="inputgroup">
-                <button type="submit" class="sub">Tilføj kommentar</button>
-            </div>
+            
         }
-    </div>
+
+    </table>
+
+
+
 </div>
+
+<div class="container1">
+    <form action="CreateComment" method="post">
+        <div class="form-group">
+                        
+            <input hidden asp-for="@Model.CurrentSpot.Id" />
+            
+        </div>
+        <div class="form-group">
+            <label asp-for="CurrentComment.Description"></label>
+            <input style="width : 150px ; height: 100px" asp-for="CurrentComment.Description" />
+
+        </div>
+        <div class="form-group">
+            <label asp-for="CurrentComment.WaveDescription"></label>
+            <input asp-for="CurrentComment.WaveDescription" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CurrentComment.AmountOfPeople"></label>
+            <input asp-for="CurrentComment.AmountOfPeople" />
+        </div>
+        <input style="margin:auto" type="submit" value="Add Comment" class="submit-btn" />
+
+
+    </form>
+
+</div>
+
 
 <script>
     $(".gallery").magnificPopup({

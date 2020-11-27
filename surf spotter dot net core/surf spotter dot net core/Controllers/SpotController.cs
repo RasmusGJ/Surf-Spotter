@@ -43,9 +43,12 @@ namespace surf_spotter_dot_net_core.Controllers
             //Set the timeformat to 1(hourly forecast
             spotsViewModel.TimeFormat = 1;
 
+         
+
             // Get the data from spot with Id 2 as standard data
             var spot = _client.GetOneSpot(2);
-            spotsViewModel.CurrentSpot.Id = 2;
+            spotsViewModel.CurrentSpot = await spot;
+
             var spots = await _client.GetAllSpots();
             spotsViewModel.Spots = spots;
             
@@ -55,6 +58,21 @@ namespace surf_spotter_dot_net_core.Controllers
 
             spotsViewModel.Daily = daily;
             spotsViewModel.Hourly = hourly;
+            if (_db.Comments.Count() == 0)
+            {
+                
+            }
+            else
+            {
+                foreach (var c in _db.Comments)
+                {
+                    if (c.SpotId == spotsViewModel.CurrentSpot.Id)
+                    {
+                        spotsViewModel.CurrentSpot.Comments.Add(c);
+                    }
+                }
+
+            }
 
             // Returns viewmodelobject with Daily data set!
             return View(spotsViewModel);
@@ -82,6 +100,7 @@ namespace surf_spotter_dot_net_core.Controllers
                     break;
                 }
             }
+            
 
             return View(spotsViewModel);
         }
@@ -146,9 +165,10 @@ namespace surf_spotter_dot_net_core.Controllers
         public IActionResult CreateComment(SpotsViewModel spotsViewModel)
         {
             spotsViewModel.CurrentComment.Author = User.Identity.Name;
+            spotsViewModel.CurrentComment.SpotId = spotsViewModel.CurrentSpot.Id;
             _db.Comments.Add(spotsViewModel.CurrentComment);
             _db.SaveChanges();
-            return View();
+            return RedirectToAction("Spots", spotsViewModel);
         }
     }
 }
