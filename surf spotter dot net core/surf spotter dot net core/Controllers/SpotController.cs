@@ -180,6 +180,7 @@ namespace surf_spotter_dot_net_core.Controllers
         {
             spotsViewModel.CurrentComment.Author = User.Identity.Name;
             spotsViewModel.CurrentComment.SpotId = spotsViewModel.CurrentSpot.Id;
+            spotsViewModel.CurrentComment.TimeStamp = DateTime.Now;
             _db.Comments.Add(spotsViewModel.CurrentComment);
             _db.SaveChanges();
             return RedirectToAction("Spots", spotsViewModel);

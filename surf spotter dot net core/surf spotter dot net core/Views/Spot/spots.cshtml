@@ -318,9 +318,11 @@
 <div class="oneComment">
     @foreach (var comment in Model.CurrentSpot.Comments)
     {
-        <p class="commentAuthor">
-            @Html.DisplayFor(modelItem => comment.Author)
-        </p>
+    <p class="commentAuthor">
+        @Html.DisplayFor(modelItem => comment.Author)
+        ○
+        @Html.DisplayFor(modelItem => comment.TimeStamp)
+    </p>
         <p class="commentDsc">
             @Html.DisplayFor(modelItem => comment.Description)
         </p>

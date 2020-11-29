@@ -14,6 +14,7 @@ namespace surf_spotter_dot_net_core.Models
         public int AmountOfPeople { get; set; }
         public string Description { get; set; } 
         public string Author { get; set; }
+        public DateTime TimeStamp { get; set; }
         public int SpotId { get; set; }
     }
 }
