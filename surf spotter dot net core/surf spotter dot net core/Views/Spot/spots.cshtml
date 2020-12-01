@@ -9,7 +9,7 @@
     </div>
 }
 
-<!--Hentning af google api og placering af markers. Evt infobokse. Fungere ikke optimalt endnu....-->
+<!--Hentning af google maps api og placering af markers. Evt infobokse. Fungere ikke optimalt endnu....-->
 <div class="maps" id="googleMap"></div>
 <script>
     var map;
@@ -133,7 +133,7 @@
         type="text/javascript">
 </script>
 
-
+@*Finds the current spot name and displays it above data table*@
 <div class="tableSection">
 
     @foreach (var s in Model.Spots)
@@ -144,6 +144,10 @@
         }
     }
 
+    @* Div for customizing which data is shown on datatable. 
+       1 select to choose which spot you want to see data for.
+        another select to change between unit(imperial/metric)
+        and a last select to change the time format(Daily/Hourly) forecast*@
     <div class="spotSelectDiv">
         <form action="spots" method="post">
             <select class="spotSelect"
@@ -167,6 +171,9 @@
         </form>
     </div>
 
+    @*Following checks which unit format the user has selected 
+        and adds the correct string units to the end of data 
+        so it is more readable for the users*@
     @{
         string unit = "";
     }
@@ -183,6 +190,12 @@
     {
         unit = "err";
     }
+
+
+    @* Handles the selected timeformat(Hourly/daily) forecast
+       1 = daily 
+       2 = hourly
+       Enum to make code more readable for developers?*@
 
     @if (Model.TimeFormat == 1)
     {
@@ -215,6 +228,8 @@
             </thead>
             <tbody>
 
+                @*  c is used as a counter that is used to filter our list of hourly timestamps
+                    i is used to displat hourly offset from current time *@
                 @{
                     int i = 0;
                     int c = 0;
@@ -330,6 +345,8 @@
     }
 </div>
 
+@*This section is used to display all spot comments from our spot comments list,
+    which is filled in the spots controller*@
 @{
     int f = 0;
 }
@@ -362,6 +379,8 @@
 
 <div class="border1"></div>
 
+@*This section is for creating comments. This is only available for logged in users, 
+    as shown with the [Authorize] tag in the post method CreateComment in spotscontroller*@
 <div class="makeCommentCon">
     <form action="CreateComment" method="post">
         <div class="form-group">
@@ -383,14 +402,4 @@
         <input style="margin:auto" type="submit" value="Add Comment" class="submit-btn" />
     </form>
 </div>
-
-<script>
-    $(".gallery").magnificPopup({
-        delegate: 'a',
-        type: 'image',
-        gallery: {
-            enabled: true
-        }
-    });
-</script>
 
