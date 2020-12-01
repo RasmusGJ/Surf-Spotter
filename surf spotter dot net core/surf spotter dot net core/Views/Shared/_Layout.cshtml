@@ -31,6 +31,12 @@
                 <li>
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <a href="CreateSpot"> Make a spot! </a>
+                    }
+                </li>
+                <li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
                         <form id="logout" action="@Url.Action("Logout", "Account")" method="post">
                             <a href="javascript: $('#logout').submit()" class="last">
                                 Logout
@@ -45,6 +51,7 @@
                         </a>
                     }
                 </li>
+
             </ul>
         </nav>
     </div>

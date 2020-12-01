@@ -1,43 +1,48 @@
 ﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
-@model surf_spotter_dot_net_core.Models.Spot
+@model surf_spotter_dot_net_core.ViewModels.SpotsViewModel
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
 
-<div class="container">
+<div class="makeCommentCon">
+    <form action="CreateSpot" method="post">
+        <div class="form-group">
+            <label asp-for="CurrentSpot.Name"></label>
+            <input placeholder="Add a public comment..." class="commentDscInput" asp-for="CurrentSpot.Name" />
 
-    <div class="login-form">
-        @using (Html.BeginForm())
-        {
-            @Html.ValidationSummary()
-            <h2 id="reg">Registrer</h2>
-            <div class="inputgroup">
-                @Html.LabelFor(x => x.Name)
-                @Html.EditorFor(x => x.Name)
-                @Html.ValidationMessageFor(x => x.Name)
-            </div>
-
-            <div class="inputgroup">
-                @Html.LabelFor(x => x.Lat)
-                @Html.EditorFor(x => x.Lat)
-                @Html.ValidationMessageFor(x => x.Lat)
-            </div>
-            <div class="inputgroup">
-                @Html.LabelFor(x => x.Lng)
-                @Html.EditorFor(x => x.Lng)
-                @Html.ValidationMessageFor(x => x.Lng)
-
-            </div>
-            <div class="inputgroup">
-                @Html.LabelFor(x => x.SpotStatus)
-                @Html.EditorFor(x => x.SpotStatus)
-                @Html.ValidationMessageFor(x => x.SpotStatus)
-
-            </div>
-            <div class="inputgroup">
-                <button type="submit" class="sub">Opret Spot</button>
-            </div>
-        }
-    </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CurrentSpot.Lat"></label>
+            <input placeholder="Add a public comment..." asp-for="CurrentSpot.Lat" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CurrentSpot.Lng"></label>
+            <input placeholder="" asp-for="CurrentSpot.Lng" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CurrentSpot.SpotStatus"></label>
+            <input placeholder="" asp-for="CurrentSpot.SpotStatus" />
+        </div>
+        <input style="margin:auto" type="submit" value="Add Comment" class="submit-btn" />
+    </form>
 </div>
+
+<div class="spotSelectDiv">
+    <form action="CreateSpot" method="post">
+        <select class="spotSelect"
+
+
+               
+                    asp-for="CurrentSpot.Id"
+                    asp-items="@(new SelectList(Model.Spots,"Id","Name"))">
+                    
+               
+
+        </select>
+        
+
+        <input style="margin:auto" type="submit" value="Delete" class="submit-btn" />
+    </form>
+</div>
+

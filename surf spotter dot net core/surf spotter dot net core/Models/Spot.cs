@@ -18,6 +18,7 @@ namespace surf_spotter_dot_net_core.Models
         public double Lng { get; set; }
         public int SpotStatus { get; set; }
         public List<Comment> Comments { get; set; } = new List<Comment>();
+        public string SpotCreator { get; set; }
         // Timestamp for Optimistic offline lock
         [Timestamp]
         public byte[] RowVersion { get; set; }

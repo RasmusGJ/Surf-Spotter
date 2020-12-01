@@ -122,26 +122,68 @@ namespace surf_spotter_dot_net_core.Controllers
             return View(spotsViewModel);
         }
 
+        [Authorize]
         [Route("CreateSpot")]
         [Route("CS")]
         [HttpGet]
-        public IActionResult CreateSpot()
+        public async Task<IActionResult> CreateSpot()
         {
-            return View();
+            SpotsViewModel spotsViewModel = new SpotsViewModel();
+            var spots = await _client.GetAllSpots();          
+            foreach (var s in spots)
+            {
+                if (s.SpotCreator == User.Identity.Name)
+                {
+                    spotsViewModel.Spots.Add(s);
+                }
+            }
+
+            return View(spotsViewModel);
         }
 
         // Method to create a Spot
         // Model binding to ensure the correct props get set
+        [Authorize]
         [HttpPost, Route("CreateSpot")]
         [HttpPost, Route("CS")]
-        public IActionResult CreateSpot([Bind("Name, Lat, Lng, SpotStatus")] Spot spot)
+        public async Task<IActionResult> CreateSpot(SpotsViewModel spotsViewModel)
         {
+       
             if (!ModelState.IsValid)
                 return View();
+            spotsViewModel.CurrentSpot.SpotCreator = User.Identity.Name;
 
-            _db.Spots.Add(spot);
+            _db.Spots.Add(spotsViewModel.CurrentSpot);
             _db.SaveChanges();
-            return View();
+
+            var spots = await _client.GetAllSpots();
+            spotsViewModel.Spots = spots;
+
+            return View(spotsViewModel);
+        }
+
+        //
+        // Virker ikke :)
+        // Skal lige finde ud af hvordan
+        //
+        //
+        //
+        //
+        [Authorize]
+        [HttpDelete("CreateSpot")]
+        public async Task<IActionResult> DeleteSpot(SpotsViewModel spotsViewModel)
+        {
+
+
+            Spot spot = _db.Spots.First(x => x.Id == spotsViewModel.CurrentSpot.Id);
+            
+            _db.Spots.Remove(spot);
+            _db.SaveChanges();
+
+            var spots = await _client.GetAllSpots();
+            spotsViewModel.Spots = spots;
+            return View(spotsViewModel);
+
         }
 
         //Get all spots from the API
@@ -190,7 +232,7 @@ namespace surf_spotter_dot_net_core.Controllers
             _db.SaveChanges();
             return RedirectToAction("Spots", spotsViewModel);
         }
-
+        #region methods
         public SpotsViewModel EvaluateCon(SpotsViewModel spotsViewModel)
         {
             int evalScoreDaily = 1;
@@ -292,5 +334,6 @@ namespace surf_spotter_dot_net_core.Controllers
                 return spotsViewModel;
             }
         }
+        #endregion
     }
 }
