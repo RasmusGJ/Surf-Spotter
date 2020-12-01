@@ -50,6 +50,11 @@ namespace surf_spotter_dot_net_core.Controllers
             var spots = await _client.GetAllSpots();
             spotsViewModel.Spots = spots;
 
+            //Set default set spots if database is not created or no data exists
+            //SKAL ADDE TIL DATABASE ISTEDET
+            //StartUpData(spotsViewModel);
+
+
             // Make use of the props Lat, Lng and unitformat to fetch the correct weather data with correct unitformat
             spotsViewModel.UnitFormat = 1;
 
@@ -232,7 +237,8 @@ namespace surf_spotter_dot_net_core.Controllers
             _db.SaveChanges();
             return RedirectToAction("Spots", spotsViewModel);
         }
-        #region methods
+
+        #region Methods
         public SpotsViewModel EvaluateCon(SpotsViewModel spotsViewModel)
         {
             int evalScoreDaily = 1;
@@ -334,6 +340,21 @@ namespace surf_spotter_dot_net_core.Controllers
                 return spotsViewModel;
             }
         }
+
+        public SpotsViewModel StartUpData(SpotsViewModel spotsViewModel)
+        {
+            if (spotsViewModel.Spots.Count == 0)
+            {
+                spotsViewModel.Spots = new List<Spot>
+                {
+                    new Spot{ Id = 1, Name = "Hvidsande", Lat = 11, Lng = 50, SpotStatus = 1, SpotCreator = "System" },
+                    new Spot{ Id = 2, Name = "Skageb", Lat = 14, Lng = 52, SpotStatus = 1, SpotCreator = "System" }
+
+                };
+            }
+            return spotsViewModel;
+        }
+
         #endregion
     }
 }
