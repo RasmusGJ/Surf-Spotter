@@ -44,7 +44,7 @@
                 @using (Html.BeginForm())
                 {
                     @Html.ValidationSummary()
-                    <h2 id="reg">Registrer</h2>
+                    <h2 id="reg">Signup</h2>
                     <div class="inputgroup">
                         @Html.LabelFor(x => x.UserName)
                         @Html.EditorFor(x => x.UserName)
@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="inputgroup">
-                        <button type="submit" class="sub">Registrer</button>
+                        <button type="submit" class="sub">Signup</button>
                     </div>
                     <div class="inputgroup"> 
                         <input type="button" class="sub" onclick="location.href = 'login';" value="Login">
