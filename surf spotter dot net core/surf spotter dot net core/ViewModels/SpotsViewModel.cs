@@ -20,9 +20,12 @@ namespace surf_spotter_dot_net_core.ViewModels
         public List<APIModel.Hourly> Hourly { get; set; }
         public List<Spot> Spots { get; set; }       
         //Sets the specified data format(metric, imperial etc.)
-        public int SpotFormat { get; set; }
-
+        public int UnitFormat { get; set; }
         //Sets the time format displayed on view
         public int TimeFormat { get; set; }
+        //General evaluation of the given spot.
+        public int GenEvalDaily { get; set; }
+        public int GenEvalHourly { get; set; }
+
     }
 }

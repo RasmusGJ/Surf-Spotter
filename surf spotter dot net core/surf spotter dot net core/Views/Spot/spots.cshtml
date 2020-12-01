@@ -152,7 +152,7 @@
             </select>
 
             <select class="unitSelect"
-                    asp-for="SpotFormat">
+                    asp-for="UnitFormat">
                 <option value="1">Metric</option>
                 <option value="2">Imperial</option>
             </select>
@@ -167,6 +167,22 @@
         </form>
     </div>
 
+    @{
+        string unit = "";
+    }
+
+    @if (Model.UnitFormat == 1)
+    {
+        unit = "m/s";
+    }
+    else if (Model.UnitFormat == 2)
+    {
+        unit = "f/s";
+    }
+    else
+    {
+        unit = "err";
+    }
 
     @if (Model.TimeFormat == 1)
     {
@@ -180,10 +196,10 @@
                         Air Temperature
                     </th>
                     <th>
-                        Air Pressure
+                        Feels Like
                     </th>
                     <th>
-                        Feels Like
+                        Humidity
                     </th>
                     <th>
                         Wind Speed
@@ -191,42 +207,48 @@
                     <th>
                         Wind Degree
                     </th>
+                    <th>
+                        Evaluation
+                    </th>
 
                 </tr>
             </thead>
             <tbody>
 
-
                 @{
                     int i = 0;
                     int c = 0;
+
                 }
 
                 @foreach (var vmItem in Model.Hourly)
                 {
                     if (c == 0)
                     {
-                        <tr>
-                            <td>
-                                @string.Format("+{0}:00", i)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => vmItem.Temp)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => vmItem.Pressure)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => vmItem.Feels_Like)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => vmItem.Wind_Speed)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => vmItem.Wind_Deg)
-                                <img src="~/Assets/Images/arrow.png" id="myimage" style="transform:rotate(@vmItem.Wind_Deg@@deg); margin-top:5px;margin-left:10px;margin-right:10px;" />
-                            </td>
-                        </tr>
+                <tr>
+                    <td>
+                        @string.Format("+{0}:00", i)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => vmItem.Temp)°
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => vmItem.Feels_Like)°
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => vmItem.Humidity) %
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => vmItem.Wind_Speed) @unit
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => vmItem.Wind_Deg)
+                        <img src="~/Assets/Images/arrow.png" id="myimage" style="transform:rotate(@vmItem.Wind_Deg@@deg); margin-top:5px;margin-left:10px;margin-right:10px;" />
+                    </td>
+                    <td>
+                        @Model.GenEvalHourly/5
+                    </td>
+                </tr>
                         c = 1;
                     }
                     else
@@ -262,11 +284,12 @@
                     <th>
                         Wind Deg
                     </th>
-
+                    <th>
+                        Evaluation
+                    </th>
                 </tr>
             </thead>
             <tbody>
-
 
                 @{
                     int l = 0;
@@ -275,27 +298,30 @@
                 @foreach (var vmItem in Model.Daily)
                 {
 
-                    <tr>
-                        <td>
-                            @string.Format(DateTime.Today.AddDays(l).ToString("d/M/yy"))
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => vmItem.Temp.Day)°
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => vmItem.Feels_Like.Day)°
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => vmItem.Humidity) %
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => vmItem.Wind_Speed) m/s
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => vmItem.Wind_Deg)
-                            <img src="~/Assets/Images/arrow.png" id="myimage" style="transform:rotate(@vmItem.Wind_Deg@@deg); margin-top:5px;margin-left:10px;margin-right:10px;" />
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @string.Format(DateTime.Today.AddDays(l).ToString("d/M/yy"))
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => vmItem.Temp.Day)°
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => vmItem.Feels_Like.Day)°
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => vmItem.Humidity) %
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => vmItem.Wind_Speed) @unit
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => vmItem.Wind_Deg)
+                        <img src="~/Assets/Images/arrow.png" id="myimage" style="transform:rotate(@vmItem.Wind_Deg@@deg); margin-top:5px;margin-left:10px;margin-right:10px;" />
+                    </td>
+                    <td>
+                        @Model.GenEvalDaily/5
+                    </td>
+                </tr>
 
                     l++;
                 }
@@ -316,6 +342,7 @@
 <h4 style="margin-bottom:20px;margin-left:75px;color:dimgray;">@f comments related to @Model.CurrentSpot.Name</h4>
 <div class="border1"></div>
 <div class="oneComment">
+
     @foreach (var comment in Model.CurrentSpot.Comments)
     {
     <p class="commentAuthor">

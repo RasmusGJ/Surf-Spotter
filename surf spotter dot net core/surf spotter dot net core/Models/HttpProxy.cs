@@ -34,21 +34,21 @@ namespace surf_spotter_dot_net_core.Models
         //Gets all data from openweathermap API for an hourly forecast (48Hours from current)
         public async Task<List<Hourly>> GetAllByHourly(double lat, double lng, int format)
         {
-            string unit = "";
+            string APIunit = "";
 
             if (format == 1)
             {
-                unit = "metric";
+                APIunit = "metric";
             }
             else if (format == 2)
             {
-                unit = "imperial";
+                APIunit = "imperial";
             }
 
             Root hourlys = new Root();
 
             var result = "";
-            var response = await client.GetAsync($"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lng}&units={unit}&appid=90109a7db32ae3dda1bca5e0458bc1da");
+            var response = await client.GetAsync($"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lng}&units={APIunit}&appid=90109a7db32ae3dda1bca5e0458bc1da");
             if (response.IsSuccessStatusCode)
             {
                 result = await response.Content.ReadAsStringAsync();
@@ -61,21 +61,21 @@ namespace surf_spotter_dot_net_core.Models
         //Gets all data from openweathermap API for a daily forecast (7days from current)
         public async Task<List<Daily>> GetAllByDaily(double lat, double lng, int format)
         {
-            string unit = "";
+            string APIunit = "";
 
             if (format == 1)
             {
-                unit = "metric";
+                APIunit = "metric";
             }
             else if (format == 2)
             {
-                unit = "imperial";
+                APIunit = "imperial";
             }
 
             Root daily = new Root();
 
             var result = "";
-            var response = await client.GetAsync($"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lng}&units={unit}&appid=90109a7db32ae3dda1bca5e0458bc1da");
+            var response = await client.GetAsync($"https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lng}&units={APIunit}&appid=90109a7db32ae3dda1bca5e0458bc1da");
             if (response.IsSuccessStatusCode)
             {
                 result = await response.Content.ReadAsStringAsync();

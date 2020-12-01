@@ -13,7 +13,6 @@ namespace surf_spotter_dot_net_core.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class SpotController : Controller
     {
-
         //Dependency injection to use objects
         private readonly ILogger<SpotController> _logger;
         private readonly IdentityDataContext _db;
@@ -50,13 +49,17 @@ namespace surf_spotter_dot_net_core.Controllers
 
             var spots = await _client.GetAllSpots();
             spotsViewModel.Spots = spots;
-            
-            // Make use of the props Lat and Lng to fetch the weather data
-            var daily = await _client.GetAllByDaily(spot.Result.Lat, spot.Result.Lng, 1);
-            var hourly = await _client.GetAllByHourly(spot.Result.Lat, spot.Result.Lng, 1);
+
+            // Make use of the props Lat, Lng and unitformat to fetch the correct weather data with correct unitformat
+            spotsViewModel.UnitFormat = 1;
+
+            var daily = await _client.GetAllByDaily(spot.Result.Lat, spot.Result.Lng, spotsViewModel.UnitFormat);
+            var hourly = await _client.GetAllByHourly(spot.Result.Lat, spot.Result.Lng, spotsViewModel.UnitFormat);
 
             spotsViewModel.Daily = daily;
             spotsViewModel.Hourly = hourly;
+
+            spotsViewModel = EvaluateCon(spotsViewModel);
 
             if (_db.Comments.Count() == 0)
             {
@@ -90,8 +93,8 @@ namespace surf_spotter_dot_net_core.Controllers
             {
                 if (s.Id == spotsViewModel.CurrentSpot.Id)
                 {
-                    var daily = await _client.GetAllByDaily(s.Lat, s.Lng, spotsViewModel.SpotFormat);
-                    var hourly = await _client.GetAllByHourly(s.Lat, s.Lng, spotsViewModel.TimeFormat);
+                    var daily = await _client.GetAllByDaily(s.Lat, s.Lng, spotsViewModel.UnitFormat);
+                    var hourly = await _client.GetAllByHourly(s.Lat, s.Lng, spotsViewModel.UnitFormat);
 
                     spotsViewModel.Hourly = hourly;
                     spotsViewModel.Daily = daily;
@@ -99,6 +102,8 @@ namespace surf_spotter_dot_net_core.Controllers
                     break;
                 }
             }
+
+            spotsViewModel = EvaluateCon(spotsViewModel);
 
             if (_db.Comments.Count() == 0)
             {
@@ -184,6 +189,108 @@ namespace surf_spotter_dot_net_core.Controllers
             _db.Comments.Add(spotsViewModel.CurrentComment);
             _db.SaveChanges();
             return RedirectToAction("Spots", spotsViewModel);
+        }
+
+        public SpotsViewModel EvaluateCon(SpotsViewModel spotsViewModel)
+        {
+            int evalScoreDaily = 1;
+            int evalScoreHourly = 1;
+
+            if (spotsViewModel.UnitFormat == 1)
+            {
+                foreach (var d in spotsViewModel.Daily)
+                {
+                    if (d.Temp.Day > 10)
+                    {
+                        evalScoreDaily++;
+                    }
+                    if (d.Feels_Like.Day > 10)
+                    {
+                        evalScoreDaily++;
+                    }
+                    if (d.Humidity < 50)
+                    {
+                        evalScoreDaily++;
+                    }
+                    if (d.Wind_Speed > 5)
+                    {
+                        evalScoreDaily++;
+                    }
+                    spotsViewModel.GenEvalDaily = evalScoreDaily;
+                    break;
+                }
+
+                foreach (var d in spotsViewModel.Hourly)
+                {
+                    if (d.Temp > 10)
+                    {
+                        evalScoreHourly++;
+                    }
+                    if (d.Feels_Like > 10)
+                    {
+                        evalScoreHourly++;
+                    }
+                    if (d.Humidity < 50)
+                    {
+                        evalScoreHourly++;
+                    }
+                    if (d.Wind_Speed > 5)
+                    {
+                        evalScoreHourly++;
+                    }
+                    spotsViewModel.GenEvalHourly = evalScoreHourly;
+                    break;
+                }
+                return spotsViewModel;
+            }
+            else
+            {
+                foreach (var d in spotsViewModel.Daily)
+                {
+                    if (d.Temp.Day > 50)
+                    {
+                        evalScoreDaily++;
+                    }
+                    if (d.Feels_Like.Day > 50)
+                    {
+                        evalScoreDaily++;
+                    }
+                    if (d.Humidity < 50)
+                    {
+                        evalScoreDaily++;
+                    }
+                    if (d.Wind_Speed > 11.1847)
+                    {
+                        evalScoreDaily++;
+                    }
+                    spotsViewModel.GenEvalDaily = evalScoreDaily;
+                    break;
+                }
+
+                foreach (var d in spotsViewModel.Hourly)
+                {
+                    if (d.Temp > 50)
+                    {
+                        evalScoreHourly++;
+                    }
+                    if (d.Feels_Like > 50)
+                    {
+                        evalScoreHourly++;
+                    }
+                    if (d.Humidity < 50)
+                    {
+                        evalScoreHourly++;
+                    }
+                    if (d.Wind_Speed > 11.1847)
+                    {
+                        evalScoreHourly++;
+                    }
+                    spotsViewModel.GenEvalHourly = evalScoreHourly;
+                    break;
+                }
+
+                return spotsViewModel;
+            }
         }
     }
 }

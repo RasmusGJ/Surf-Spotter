@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width-device, initial scale=1.0">
-    <link rel="stylesheet" type="text/css" href="CSS/navBarSheet.css" /> 
+    <link rel="stylesheet" type="text/css" href="CSS/navBarSheet.css" />
     <link rel="stylesheet" href="CSS/loginSheet.css" type="text/css">
     <link rel="stylesheet" href="CSS/footerSheet.css">
 
@@ -23,6 +23,7 @@
 
 </head>
 
+@*Navigation bar*@
 <body>
     <header>
         <nav>
@@ -38,17 +39,20 @@
             </div>
         </nav>
     </header>
-   
-    <div class= "login">
+
+    @* Login form that takes in the username and password.
+       Posts to AccountController which handles the login  *@
+
+    <div class="login">
         <div class="container">
 
             <div class="login-form">
                 <form action="" method="post">
-                    
+
                     @using (Html.BeginForm())
                     {
                         @Html.ValidationSummary()
-                    <h2 id="login">Login</h2>
+                        <h2 id="login">Login</h2>
                         <div class="inputgroup">
                             @Html.LabelFor(x => x.UserName)
                             @Html.EditorFor(x => x.UserName)
@@ -68,11 +72,11 @@
                             <input type="button" class="sub" onclick="location.href = 'Signup';" value="Registrer">
                         </div>
                     }
-                    </form>
+                </form>
             </div>
         </div>
-   </div>
-    
+    </div>
+
     <footer class="footer">
         <div class="footer-content">
             <p class="copyright">
@@ -85,8 +89,8 @@
 
             </div>
 
-            </div>
-        </footer>
+        </div>
+    </footer>
 
-            <script src="login.js"></script>
+    <script src="login.js"></script>
 </body>
