@@ -76,7 +76,7 @@ namespace surf_spotter_dot_net_core.Controllers
 
             if (_db.Comments.Count() == 0)
             {
-                
+
             }
             else
             {
@@ -160,9 +160,9 @@ namespace surf_spotter_dot_net_core.Controllers
         [Authorize]
         [HttpPost, Route("CreateSpot")]
         [HttpPost, Route("CS")]
-        public async Task<IActionResult> CreateSpot(SpotsViewModel spotsViewModel)
+        public async Task<IActionResult> CreateSpot([Bind("CurrentSpot")]SpotsViewModel spotsViewModel)
         {
-       
+
             if (!ModelState.IsValid)
                 return View();
             spotsViewModel.CurrentSpot.SpotCreator = User.Identity.Name;
@@ -182,20 +182,23 @@ namespace surf_spotter_dot_net_core.Controllers
         //
         //
         //
+
         [Authorize]
-        [HttpDelete("CreateSpot")]
+        [HttpPost("DeleteSpot")]
         public async Task<IActionResult> DeleteSpot(SpotsViewModel spotsViewModel)
         {
 
 
-            Spot spot = _db.Spots.First(x => x.Id == spotsViewModel.CurrentSpot.Id);
-            
+            //Spot spot = _db.Spots.First(x => x.Id == spotsViewModel.CurrentSpot.Id);
+
+            Spot spot = _db.Spots.Find(spotsViewModel.CurrentSpot.Id);
+
             _db.Spots.Remove(spot);
             _db.SaveChanges();
 
-            await _client.GetAllSpots(spotsViewModel);
-
-            return View(spotsViewModel);
+            var spots = await _client.GetAllSpots();
+            spotsViewModel.Spots = spots;
+            return RedirectToAction("CreateSpot", "Spot", spotsViewModel);
 
         }
 
@@ -354,13 +357,13 @@ namespace surf_spotter_dot_net_core.Controllers
 
         public SpotsViewModel StartupData(SpotsViewModel spotsViewModel)
         {
-            spotsViewModel.CurrentSpot = new Spot 
-            {    
+            spotsViewModel.CurrentSpot = new Spot
+            {
                 Name = "Hvidsande",
-                Lat = 11, 
+                Lat = 11,
                 Lng = 50,
-                SpotStatus = 1, 
-                SpotCreator = "System" 
+                SpotStatus = 1,
+                SpotCreator = "System"
             };
 
             return spotsViewModel;
