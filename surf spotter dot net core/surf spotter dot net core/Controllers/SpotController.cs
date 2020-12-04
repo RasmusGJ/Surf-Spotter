@@ -151,7 +151,7 @@ namespace surf_spotter_dot_net_core.Controllers
         [Authorize]
         [HttpPost, Route("CreateSpot")]
         [HttpPost, Route("CS")]
-        public async Task<IActionResult> CreateSpot(SpotsViewModel spotsViewModel)
+        public async Task<IActionResult> CreateSpot([Bind("CurrentSpot")]SpotsViewModel spotsViewModel)
         {
        
             if (!ModelState.IsValid)
@@ -174,20 +174,23 @@ namespace surf_spotter_dot_net_core.Controllers
         //
         //
         //
+
         [Authorize]
-        [HttpDelete("CreateSpot")]
+        [HttpPost("DeleteSpot")]
         public async Task<IActionResult> DeleteSpot(SpotsViewModel spotsViewModel)
         {
 
 
-            Spot spot = _db.Spots.First(x => x.Id == spotsViewModel.CurrentSpot.Id);
-            
+            //Spot spot = _db.Spots.First(x => x.Id == spotsViewModel.CurrentSpot.Id);
+
+            Spot spot = _db.Spots.Find(spotsViewModel.CurrentSpot.Id);
+
             _db.Spots.Remove(spot);
             _db.SaveChanges();
 
             var spots = await _client.GetAllSpots();
             spotsViewModel.Spots = spots;
-            return View(spotsViewModel);
+            return RedirectToAction("CreateSpot", "Spot", spotsViewModel);
 
         }
 

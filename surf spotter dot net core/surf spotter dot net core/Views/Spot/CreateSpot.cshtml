@@ -9,27 +9,27 @@
     <form action="CreateSpot" method="post">
         <div class="form-group">
             <label asp-for="CurrentSpot.Name"></label>
-            <input placeholder="Add a public comment..." class="commentDscInput" asp-for="CurrentSpot.Name" />
+            <input placeholder="Add a public spot..." class="commentDscInput" asp-for="CurrentSpot.Name" />
 
         </div>
         <div class="form-group">
             <label asp-for="CurrentSpot.Lat"></label>
-            <input placeholder="Add a public comment..." asp-for="CurrentSpot.Lat" />
+            <input placeholder="Latitude" asp-for="CurrentSpot.Lat" />
         </div>
         <div class="form-group">
             <label asp-for="CurrentSpot.Lng"></label>
-            <input placeholder="" asp-for="CurrentSpot.Lng" />
+            <input placeholder="Longitude" asp-for="CurrentSpot.Lng" />
         </div>
         <div class="form-group">
             <label asp-for="CurrentSpot.SpotStatus"></label>
             <input placeholder="" asp-for="CurrentSpot.SpotStatus" />
         </div>
-        <input style="margin:auto" type="submit" value="Add Comment" class="submit-btn" />
+        <input style="margin:auto" type="submit" value="Add Spot" class="submit-btn" />
     </form>
 </div>
 
 <div class="spotSelectDiv">
-    <form action="CreateSpot" method="post">
+    <form action="DeleteSpot" method="post">
         <select class="spotSelect"
 
 
