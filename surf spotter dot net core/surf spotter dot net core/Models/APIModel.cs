@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-
 namespace surf_spotter_dot_net_core.Models
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -71,7 +70,6 @@ namespace surf_spotter_dot_net_core.Models
             public List<Hourly> Hourly { get; set; }
             public List<Daily> Daily { get; set; }
         }
-        
     }
 }
 
