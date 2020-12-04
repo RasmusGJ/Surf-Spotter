@@ -62,7 +62,7 @@ namespace surf_spotter_dot_net_core.Controllers
                 spotsViewModel.CurrentSpot = await spot;
             }
 
-            await _client.GetAllSpots(spotsViewModel);
+            spotsViewModel.Spots = await _client.GetAllSpots(spotsViewModel);
 
             // Make use of the props Lat, Lng and unitformat to fetch the correct weather data with correct unitformat
             spotsViewModel.UnitFormat = 1;
@@ -135,25 +135,32 @@ namespace surf_spotter_dot_net_core.Controllers
             return View(spotsViewModel);
         }
 
-        [Authorize]
+      
         [Route("CreateSpot")]
         [Route("CS")]
         [HttpGet]
         public async Task<IActionResult> CreateSpot()
         {
-            SpotsViewModel spotsViewModel = new SpotsViewModel();
-
-            var spots = await _client.GetAllSpots(spotsViewModel);
-            
-            foreach (var s in spots)
+            if (!User.Identity.IsAuthenticated)
             {
-                if (s.SpotCreator == User.Identity.Name)
-                {
-                    spotsViewModel.Spots.Add(s);
-                }
+                return RedirectToAction("Login", "Account");
             }
+            else
+            {
+                SpotsViewModel spotsViewModel = new SpotsViewModel();
 
-            return View(spotsViewModel);
+                var spots = await _client.GetAllSpots(spotsViewModel);
+
+                foreach (var s in spots)
+                {
+                    if (s.SpotCreator == User.Identity.Name)
+                    {
+                        spotsViewModel.Spots.Add(s);
+                    }
+                }
+
+                return View(spotsViewModel);
+            }
         }
 
         // Method to create a Spot
@@ -175,7 +182,7 @@ namespace surf_spotter_dot_net_core.Controllers
             return View(spotsViewModel);
         }
        
-        [Authorize]
+        [Authorize()]
         [HttpPost("DeleteSpot")]
         public async Task<IActionResult> DeleteSpot(SpotsViewModel spotsViewModel)
         {
@@ -228,16 +235,25 @@ namespace surf_spotter_dot_net_core.Controllers
             return View();
         }
 
-        [Authorize()]
+        
+        
         [HttpPost, Route("CreateComment")]
         public IActionResult CreateComment(SpotsViewModel spotsViewModel)
         {
-            spotsViewModel.CurrentComment.Author = User.Identity.Name;
-            spotsViewModel.CurrentComment.SpotId = spotsViewModel.CurrentSpot.Id;
-            spotsViewModel.CurrentComment.TimeStamp = DateTime.Now;
-            _db.Comments.Add(spotsViewModel.CurrentComment);
-            _db.SaveChanges();
-            return RedirectToAction("Spots", spotsViewModel);
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");   
+            }
+            else 
+            {
+                spotsViewModel.CurrentComment.Author = User.Identity.Name;
+                spotsViewModel.CurrentComment.SpotId = spotsViewModel.CurrentSpot.Id;
+                spotsViewModel.CurrentComment.TimeStamp = DateTime.Now;
+                _db.Comments.Add(spotsViewModel.CurrentComment);
+                _db.SaveChanges();
+                return RedirectToAction("Spots", spotsViewModel);
+            }
+            
         }
 
         #region Methods
