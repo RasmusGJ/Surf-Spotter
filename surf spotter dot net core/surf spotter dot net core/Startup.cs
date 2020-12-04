@@ -33,17 +33,8 @@ namespace surf_spotter_dot_net_core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
-            services.AddServerSideBlazor();
-
             services.AddControllersWithViews();
 
-            //kan godt være login ikke virker med disse aendringer til authentication
-            //
-            // JWT token bearer er indf�rt, Dog er der problemer mellem login systemet bruger authentication
-            // og at dette bruger authentication. Koden for neen burde "overskrive" men g�r det ikke
-            // Tror ikke vi kan have b�de login og JWT tokens. Men API'et er "secured" i at man skal v�re logget ind :)
-            //
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
                 {
@@ -71,9 +62,7 @@ namespace surf_spotter_dot_net_core
             });
 
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
-
-            
-
+                       
             services.AddDbContext<IdentityDataContext>(options =>
             {
                 var connectionString = Configuration.GetConnectionString("IdentityDataContext");
@@ -85,7 +74,18 @@ namespace surf_spotter_dot_net_core
 
             services.AddSingleton<HttpProxy>();
 
-            services.AddMvc();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+
+                });
+            });
+
+                services.AddMvc();
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -122,7 +122,9 @@ namespace surf_spotter_dot_net_core
             });
 
             app.UseRouting();
-            
+
+            app.UseCors();
+
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -134,8 +136,6 @@ namespace surf_spotter_dot_net_core
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
-                endpoints.MapBlazorHub();
             });
         }
     }

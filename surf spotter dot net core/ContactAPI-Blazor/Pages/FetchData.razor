@@ -1,0 +1,86 @@
+@page "/fetchdata"
+@inject HttpClient Http
+
+<h1>Admin Page - SPOTS</h1>
+
+<p>Denne admin side er under konstruktion. CRUD funktioner kommer snart... </p>
+
+@if (spots == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Lat</th>
+                <th>Lng</th>
+                <th>Spot Status</th>
+                <th>Amount of comments</th>
+                <th>Spot Creator</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var spot in spots)
+            {
+                
+                <tr>
+                    <td>@spot.Id</td>
+                    <td>@spot.Name</td>
+                    <td>@spot.Lat</td>
+                    <td>@spot.Lng</td>
+                    <td>@spot.SpotStatus</td>
+                    <td>@(GetCommentAmounts(spot.Id).ToString())</td>
+                    <td>@spot.SpotCreator</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<Spot> spots;
+
+    protected override async Task OnInitializedAsync()
+    {
+        spots = await Http.GetFromJsonAsync<List<Spot>>("http://localhost:57804/api/getall");
+    }
+
+    private List<Comment> comments;
+    private int commentCount;
+
+    private async ValueTask<int> GetCommentAmounts(int id)
+    {
+        comments = await Http.GetFromJsonAsync<List<Comment>>($"http://localhost:57804/api/getcommentsbyspotid/{id}");
+        commentCount = comments.Count();
+        return commentCount;
+    }
+
+    public class Spot
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public double Lat { get; set; }
+        public double Lng { get; set; }
+        public int SpotStatus { get; set; }
+        public List<Comment> Comments { get; set; } = new List<Comment>();
+        public string SpotCreator { get; set; }
+    }
+
+    public class Comment
+    {
+        public int Id { get; set; }
+        public string SpotInfo { get; set; }
+        public string WaveDescription { get; set; }
+        public int AmountOfPeople { get; set; }
+        public string Description { get; set; }
+        public string Author { get; set; }
+        public DateTime TimeStamp { get; set; }
+        public int SpotId { get; set; }
+    }
+}

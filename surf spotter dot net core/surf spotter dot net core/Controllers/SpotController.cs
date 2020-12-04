@@ -46,7 +46,7 @@ namespace surf_spotter_dot_net_core.Controllers
 
             // Get the data from spot with Id 1 as standard data
             var spot = _client.GetOneSpot(1);
-            await _client.GetAllSpots(spotsViewModel);
+            spotsViewModel.Spots = await _client.GetAllSpots(spotsViewModel);
 
             //Set default set spots if database is not created or no data exists
             //SKAL ADDE TIL DATABASE ISTEDET
