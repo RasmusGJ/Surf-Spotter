@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using surf_spotter_dot_net_core.ViewModels;
 using static surf_spotter_dot_net_core.Models.APIModel;
 
 namespace surf_spotter_dot_net_core.Models
@@ -86,19 +87,17 @@ namespace surf_spotter_dot_net_core.Models
         }
 
         //Gets all spots from API
-        public async Task<List<Spot>> GetAllSpots()
+        public async Task<SpotsViewModel> GetAllSpots(SpotsViewModel spotsViewModel)
         {
-            Spot spot = new Spot();
-
             var result = "";
             var response = await client.GetAsync($"http://localhost:57804/api/getall");
             if (response.IsSuccessStatusCode)
             {
                 result = await response.Content.ReadAsStringAsync();
-                spot.Spots = JsonConvert.DeserializeObject<List<Spot>>(result);
+                spotsViewModel.Spots = JsonConvert.DeserializeObject<List<Spot>>(result);
             }
 
-            return spot.Spots;
+            return spotsViewModel;
         }
 
         //Gets one spot by id from API

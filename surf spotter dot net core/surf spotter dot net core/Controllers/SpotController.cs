@@ -43,23 +43,31 @@ namespace surf_spotter_dot_net_core.Controllers
             //Set the timeformat to 1(hourly forecast
             spotsViewModel.TimeFormat = 2;
 
-            // Get the data from spot with Id 2 as standard data
+            // Get the data from spot with Id 1 as standard data
             var spot = _client.GetOneSpot(1);
-            spotsViewModel.CurrentSpot = await spot;
-
-            var spots = await _client.GetAllSpots();
-            spotsViewModel.Spots = spots;
+            await _client.GetAllSpots(spotsViewModel);
 
             //Set default set spots if database is not created or no data exists
             //SKAL ADDE TIL DATABASE ISTEDET
-            //StartUpData(spotsViewModel);
 
+            if (spotsViewModel.Spots.Count == 0 && spot.Result.Name == null)
+            {
+                StartupData(spotsViewModel);
+                _db.Spots.Add(spotsViewModel.CurrentSpot);
+                _db.SaveChanges();
+            }
+            else
+            {
+                spotsViewModel.CurrentSpot = await spot;
+            }
+
+            await _client.GetAllSpots(spotsViewModel);
 
             // Make use of the props Lat, Lng and unitformat to fetch the correct weather data with correct unitformat
             spotsViewModel.UnitFormat = 1;
 
-            var daily = await _client.GetAllByDaily(spot.Result.Lat, spot.Result.Lng, spotsViewModel.UnitFormat);
-            var hourly = await _client.GetAllByHourly(spot.Result.Lat, spot.Result.Lng, spotsViewModel.UnitFormat);
+            var daily = await _client.GetAllByDaily(spotsViewModel.CurrentSpot.Lat, spotsViewModel.CurrentSpot.Lng, spotsViewModel.UnitFormat);
+            var hourly = await _client.GetAllByHourly(spotsViewModel.CurrentSpot.Lat, spotsViewModel.CurrentSpot.Lng, spotsViewModel.UnitFormat);
 
             spotsViewModel.Daily = daily;
             spotsViewModel.Hourly = hourly;
@@ -91,8 +99,7 @@ namespace surf_spotter_dot_net_core.Controllers
         [HttpPost, Route("s")]
         public async Task<ActionResult> Spots(SpotsViewModel spotsViewModel)
         {
-            var spots = await _client.GetAllSpots();
-            spotsViewModel.Spots = spots;
+            await _client.GetAllSpots(spotsViewModel);
             // Iterate to find the according Spot and fetch the data
             foreach (Spot s in spotsViewModel.Spots)
             {
@@ -134,8 +141,10 @@ namespace surf_spotter_dot_net_core.Controllers
         public async Task<IActionResult> CreateSpot()
         {
             SpotsViewModel spotsViewModel = new SpotsViewModel();
-            var spots = await _client.GetAllSpots();          
-            foreach (var s in spots)
+
+            await _client.GetAllSpots(spotsViewModel);
+
+            foreach (var s in spotsViewModel.Spots)
             {
                 if (s.SpotCreator == User.Identity.Name)
                 {
@@ -161,8 +170,7 @@ namespace surf_spotter_dot_net_core.Controllers
             _db.Spots.Add(spotsViewModel.CurrentSpot);
             _db.SaveChanges();
 
-            var spots = await _client.GetAllSpots();
-            spotsViewModel.Spots = spots;
+            await _client.GetAllSpots(spotsViewModel);
 
             return View(spotsViewModel);
         }
@@ -185,8 +193,8 @@ namespace surf_spotter_dot_net_core.Controllers
             _db.Spots.Remove(spot);
             _db.SaveChanges();
 
-            var spots = await _client.GetAllSpots();
-            spotsViewModel.Spots = spots;
+            await _client.GetAllSpots(spotsViewModel);
+
             return View(spotsViewModel);
 
         }
@@ -196,20 +204,23 @@ namespace surf_spotter_dot_net_core.Controllers
         [HttpGet]
         public async Task<ActionResult> ShowSpots()
         {
+            SpotsViewModel spotsViewModel = new SpotsViewModel();
 
-            var spots = await _client.GetAllSpots();
+            await _client.GetAllSpots(spotsViewModel);
 
-            return View(spots);
+            return View(spotsViewModel.Spots);
         }
-
 
         [Route("editspot")]
         [Route("Home/editspot")]
         [HttpGet]
         public async Task<ActionResult> EditSpot()
         {
-            var spot = await _client.GetOneSpot(1);
-            return View(spot);
+            SpotsViewModel spotsViewModel = new SpotsViewModel();
+
+            await _client.GetAllSpots(spotsViewModel);
+
+            return View(spotsViewModel.Spots);
         }
 
         [Route("editspot")]
@@ -341,17 +352,17 @@ namespace surf_spotter_dot_net_core.Controllers
             }
         }
 
-        public SpotsViewModel StartUpData(SpotsViewModel spotsViewModel)
+        public SpotsViewModel StartupData(SpotsViewModel spotsViewModel)
         {
-            if (spotsViewModel.Spots.Count == 0)
-            {
-                spotsViewModel.Spots = new List<Spot>
-                {
-                    new Spot{ Id = 1, Name = "Hvidsande", Lat = 11, Lng = 50, SpotStatus = 1, SpotCreator = "System" },
-                    new Spot{ Id = 2, Name = "Skageb", Lat = 14, Lng = 52, SpotStatus = 1, SpotCreator = "System" }
+            spotsViewModel.CurrentSpot = new Spot 
+            {    
+                Name = "Hvidsande",
+                Lat = 11, 
+                Lng = 50,
+                SpotStatus = 1, 
+                SpotCreator = "System" 
+            };
 
-                };
-            }
             return spotsViewModel;
         }
 
