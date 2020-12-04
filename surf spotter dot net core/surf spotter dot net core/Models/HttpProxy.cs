@@ -89,15 +89,17 @@ namespace surf_spotter_dot_net_core.Models
         //Gets all spots from API
         public async Task<List<Spot>> GetAllSpots(SpotsViewModel spotsViewModel)
         {
+            List<Spot> spots = new List<Spot>();
+
             var result = "";
             var response = await client.GetAsync($"http://localhost:57804/api/getall");
             if (response.IsSuccessStatusCode)
             {
                 result = await response.Content.ReadAsStringAsync();
-                spotsViewModel.Spots = JsonConvert.DeserializeObject<List<Spot>>(result);
+                spots = JsonConvert.DeserializeObject<List<Spot>>(result);
             }
 
-            return spotsViewModel.Spots;
+            return spots;
         }
 
         //Gets one spot by id from API

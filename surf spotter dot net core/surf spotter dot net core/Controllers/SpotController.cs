@@ -17,6 +17,7 @@ namespace surf_spotter_dot_net_core.Controllers
         private readonly ILogger<SpotController> _logger;
         private readonly IdentityDataContext _db;
         private readonly HttpProxy _client;
+        private readonly object balanceLock = new object();
 
         public SpotController(ILogger<SpotController> logger, IdentityDataContext db, HttpProxy client)
         {
@@ -143,7 +144,7 @@ namespace surf_spotter_dot_net_core.Controllers
             SpotsViewModel spotsViewModel = new SpotsViewModel();
 
             var spots = await _client.GetAllSpots(spotsViewModel);
-
+            
             foreach (var s in spots)
             {
                 if (s.SpotCreator == User.Identity.Name)
@@ -176,7 +177,7 @@ namespace surf_spotter_dot_net_core.Controllers
        
         [Authorize]
         [HttpPost("DeleteSpot")]
-        public async Task<IActionResult> DeleteSpot(SpotsViewModel spotsViewModel)
+        public Task<IActionResult> DeleteSpot(SpotsViewModel spotsViewModel)
         {
             //Spot spot = _db.Spots.First(x => x.Id == spotsViewModel.CurrentSpot.Id);
 
@@ -184,8 +185,6 @@ namespace surf_spotter_dot_net_core.Controllers
 
             _db.Spots.Remove(spot);
             _db.SaveChanges();
-
-            await _client.GetAllSpots(spotsViewModel);
 
             return RedirectToAction("CreateSpot", "Spot", spotsViewModel);
         }
