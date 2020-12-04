@@ -91,6 +91,7 @@ namespace surf_spotter_dot_net_core
             {
                 // Cookie settings
                 options.AccessDeniedPath = "/login";
+                options.ReturnUrlParameter = "/account/login";
             });
         }
 
