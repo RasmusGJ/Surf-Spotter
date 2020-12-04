@@ -177,7 +177,7 @@ namespace surf_spotter_dot_net_core.Controllers
        
         [Authorize]
         [HttpPost("DeleteSpot")]
-        public Task<IActionResult> DeleteSpot(SpotsViewModel spotsViewModel)
+        public async Task<IActionResult> DeleteSpot(SpotsViewModel spotsViewModel)
         {
             //Spot spot = _db.Spots.First(x => x.Id == spotsViewModel.CurrentSpot.Id);
 
