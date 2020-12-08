@@ -100,7 +100,7 @@ namespace surf_spotter_dot_net_core.Controllers
         [HttpPost, Route("s")]
         public async Task<ActionResult> Spots(SpotsViewModel spotsViewModel)
         {
-            await _client.GetAllSpots(spotsViewModel);
+            spotsViewModel.Spots = await _client.GetAllSpots(spotsViewModel);
             // Iterate to find the according Spot and fetch the data
             foreach (Spot s in spotsViewModel.Spots)
             {
