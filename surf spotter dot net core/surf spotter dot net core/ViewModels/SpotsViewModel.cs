@@ -24,6 +24,5 @@ namespace surf_spotter_dot_net_core.ViewModels
         //General evaluation of the given spot.
         public int GenEvalDaily { get; set; }
         public int GenEvalHourly { get; set; }
-
     }
 }

@@ -26,7 +26,6 @@ namespace surf_spotter_dot_net_core.Controllers
             _client = client;
         }
 
-
         // Returns view Spots.cshtml
         // Makes use of API proxy to fetch Weather data and pass the data to the view for later use
         // uses ViewModel to ensure to Model is usable in the View
@@ -39,6 +38,7 @@ namespace surf_spotter_dot_net_core.Controllers
             {
                 return View();
             }
+
             SpotsViewModel spotsViewModel = new SpotsViewModel();
 
             //Set the timeformat to 1(hourly forecast
@@ -46,7 +46,7 @@ namespace surf_spotter_dot_net_core.Controllers
 
             // Get the data from spot with Id 1 as standard data
             var spot = _client.GetOneSpot(1);
-            spotsViewModel.Spots = await _client.GetAllSpots(spotsViewModel);
+            spotsViewModel.Spots = await _client.GetAllSpots();
 
             //Set default set spots if database is not created or no data exists
             //SKAL ADDE TIL DATABASE ISTEDET
@@ -62,7 +62,7 @@ namespace surf_spotter_dot_net_core.Controllers
                 spotsViewModel.CurrentSpot = await spot;
             }
 
-            spotsViewModel.Spots = await _client.GetAllSpots(spotsViewModel);
+            spotsViewModel.Spots = await _client.GetAllSpots();
 
             // Make use of the props Lat, Lng and unitformat to fetch the correct weather data with correct unitformat
             spotsViewModel.UnitFormat = 1;
@@ -100,7 +100,7 @@ namespace surf_spotter_dot_net_core.Controllers
         [HttpPost, Route("s")]
         public async Task<ActionResult> Spots(SpotsViewModel spotsViewModel)
         {
-            spotsViewModel.Spots = await _client.GetAllSpots(spotsViewModel);
+            spotsViewModel.Spots = await _client.GetAllSpots();
             // Iterate to find the according Spot and fetch the data
             foreach (Spot s in spotsViewModel.Spots)
             {
@@ -149,7 +149,7 @@ namespace surf_spotter_dot_net_core.Controllers
             {
                 SpotsViewModel spotsViewModel = new SpotsViewModel();
 
-                var spots = await _client.GetAllSpots(spotsViewModel);
+                var spots = await _client.GetAllSpots();
 
                 foreach (var s in spots)
                 {
@@ -177,7 +177,7 @@ namespace surf_spotter_dot_net_core.Controllers
             _db.Spots.Add(spotsViewModel.CurrentSpot);
             _db.SaveChanges();
 
-            await _client.GetAllSpots(spotsViewModel);
+            spotsViewModel.Spots = await _client.GetAllSpots();
 
             return View(spotsViewModel);
         }
@@ -204,7 +204,7 @@ namespace surf_spotter_dot_net_core.Controllers
         {
             SpotsViewModel spotsViewModel = new SpotsViewModel();
 
-            await _client.GetAllSpots(spotsViewModel);
+            await _client.GetAllSpots();
 
             return View(spotsViewModel.Spots);
         }
@@ -216,7 +216,7 @@ namespace surf_spotter_dot_net_core.Controllers
         {
             SpotsViewModel spotsViewModel = new SpotsViewModel();
 
-            await _client.GetAllSpots(spotsViewModel);
+            await _client.GetAllSpots();
 
             return View(spotsViewModel.Spots);
         }
@@ -234,8 +234,6 @@ namespace surf_spotter_dot_net_core.Controllers
         {
             return View();
         }
-
-        
         
         [HttpPost, Route("CreateComment")]
         public IActionResult CreateComment(SpotsViewModel spotsViewModel)

@@ -87,7 +87,7 @@ namespace surf_spotter_dot_net_core.Models
         }
 
         //Gets all spots from API
-        public async Task<List<Spot>> GetAllSpots(SpotsViewModel spotsViewModel)
+        public async Task<List<Spot>> GetAllSpots()
         {
             List<Spot> spots = new List<Spot>();
 
