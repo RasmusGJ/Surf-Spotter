@@ -65,8 +65,7 @@ namespace surf_spotter_dot_net_core
                        
             services.AddDbContext<IdentityDataContext>(options =>
             {
-                var connectionString = Configuration.GetConnectionString("IdentityDataContext");
-                options.UseSqlServer(connectionString);
+                options.UseInMemoryDatabase("SurfSpotter");
             });
 
             services.AddIdentity<IdentityUser, IdentityRole>()
