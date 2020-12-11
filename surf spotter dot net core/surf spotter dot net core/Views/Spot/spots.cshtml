@@ -1,5 +1,6 @@
 ﻿@model surf_spotter_dot_net_core.ViewModels.SpotsViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, surf spotter dot net core
 @using System.Globalization;
 
 @{
@@ -133,6 +134,8 @@
         type="text/javascript">
 </script>
 
+<p>Total amount of spots <vc:spot-counter /> </p>
+
 @*Finds the current spot name and displays it above data table*@
 <div class="tableSection">
 
@@ -148,6 +151,7 @@
        1 select to choose which spot you want to see data for.
         another select to change between unit(imperial/metric)
         and a last select to change the time format(Daily/Hourly) forecast*@
+    
     <div class="spotSelectDiv">
         <form action="spots" method="post">
             <select class="spotSelect"
