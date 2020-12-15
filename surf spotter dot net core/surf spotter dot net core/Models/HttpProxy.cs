@@ -92,7 +92,7 @@ namespace surf_spotter_dot_net_core.Models
             List<Spot> spots = new List<Spot>();
 
             var result = "";
-            var response = await client.GetAsync($"http://localhost:57804/api/getall");
+            var response = await client.GetAsync($"http://surf-spotter.dk/api/getall");
             if (response.IsSuccessStatusCode)
             {
                 result = await response.Content.ReadAsStringAsync();
@@ -108,7 +108,7 @@ namespace surf_spotter_dot_net_core.Models
             Spot spot = new Spot();
                 
             var result = "";
-            var response = await client.GetAsync($"http://localhost:57804/api/getbyid/{id}");
+            var response = await client.GetAsync($"http://surf-spotter.dk/api/getbyid/{id}");
             if (response.IsSuccessStatusCode)
             {
                 result = await response.Content.ReadAsStringAsync();
