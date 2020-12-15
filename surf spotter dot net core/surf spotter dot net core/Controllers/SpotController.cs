@@ -49,7 +49,6 @@ namespace surf_spotter_dot_net_core.Controllers
             spotsViewModel.Spots = await _client.GetAllSpots();
 
             //Set default set spots if database is not created or no data exists
-            //SKAL ADDE TIL DATABASE ISTEDET
 
             if (spotsViewModel.Spots.Count == 0 && spot.Result.Name == null)
             {
